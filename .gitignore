@@ -17,3 +17,7 @@ data/raw/*
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Dados brutos da CAPES (centenas de MB por ano)
+data/raw/*
+!data/raw/.gitkeep
