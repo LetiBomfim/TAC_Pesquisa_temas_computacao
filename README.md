@@ -11,7 +11,7 @@ abertos, para responder:
 
 ## Backlog/Roadmap
 
-- [ ] Coleta dos dados abertos da CAPES
+- [X] Coleta dos dados abertos da CAPES
 - [ ] Limpeza e consolidação da base de Computação (2010–2024)
 - [ ] Pré-processamento dos resumos (NLP)
 - [ ] Modelagem de tópicos (BERTopic, com LDA como baseline)
@@ -42,6 +42,24 @@ source .venv/bin/activate        # Para Windows é: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### 1. Baixar os dados
+
+```bash
+python src/download_capes.py
+```
+
+O script baixa os arquivos do Catálogo de Teses e Dissertações direto do portal de dados
+abertos da CAPES, um CSV por ano, de 2010 a 2024, e salva em `data/raw/` com o nome padrão `capes_<ano>.csv`.
+O download completo pode demorar. Para testar com menos dados, escolha os anos:
+
+```bash
+python src/download_capes.py --anos 2023          # só 2023
+python src/download_capes.py --anos 2022 2023     # 2022 e 2023
+```
+
+Arquivos que já foram baixados são pulados, então dá para interromper e rodar de novo depois.
+Para baixar de novo mesmo assim, é necessário usar `--forcar`.
+
 ## Contexto
 
 Projeto ligado ao artigo escrito em coautoria com Júlia Paulo Amorim na disciplina de Técnicas de Apresentação
@@ -51,7 +69,7 @@ Científica (UnB). Esta é a minha implementação do pipeline e das extensões 
 
 [Catálogo de Teses e Dissertações – Dados Abertos CAPES](https://dadosabertos.capes.gov.br/group/catalogo-de-teses-e-dissertacoes-brasil).
 
-## Autoras
+## Autoria
 
-Letícia Gonçalves Bomfim — Ciência da Computação, Universidade de Brasília
-Júlia Paulo Amorim - Ciência da Computação, Universidade de Brasília
+- **Implementação:** Letícia Gonçalves Bomfim, Ciência da Computação, Universidade de Brasília
+- **Artigo:** Letícia Gonçalves Bomfim e Júlia Paulo Amorim, Universidade de Brasília
