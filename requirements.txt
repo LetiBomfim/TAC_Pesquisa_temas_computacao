@@ -4,3 +4,4 @@ tqdm>=4.66
 spacy>=3.8
 matplotlib>=3.9
 jupyter>=1.1
+ftfy>=6.2

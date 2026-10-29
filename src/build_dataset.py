@@ -11,6 +11,7 @@ Como usar: (a partir da raiz do repositório, depois de rodar download_capes.py)
 import sys
 import unicodedata
 from pathlib import Path
+import ftfy
 
 import pandas as pd
 
@@ -35,6 +36,7 @@ COLUNAS = {
     "area_conhecimento": ["NM_AREA_CONHECIMENTO", "AreaConhecimento"],
 }
 OBRIGATORIAS = {"ano", "grau", "titulo", "resumo", "area_avaliacao"}
+COLUNAS_TEXTO = ["titulo", "resumo", "palavras_chave", "programa", "ies_nome"]
 
 GRAUS = {
     "MESTRADO": "Mestrado",
@@ -117,6 +119,10 @@ def limpar(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     for coluna in df.columns:
         df[coluna] = df[coluna].str.strip()
+        # Alguns arquivos misturam codificações, aspas e travessões do Windows viram caracteres invisíveis e o ftfy conserta esses casos.
+    for coluna in COLUNAS_TEXTO:
+        if coluna in df:
+            df[coluna] = df[coluna].map(ftfy.fix_text, na_action="ignore")
 
     df["ano"] = pd.to_numeric(df["ano"], errors="coerce").astype("Int64")
     df["grau"] = df["grau"].map(lambda g: GRAUS.get(normalizar(g), g))
