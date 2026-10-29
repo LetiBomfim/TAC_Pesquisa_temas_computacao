@@ -75,6 +75,28 @@ No final, mostra quantos trabalhos ficaram por ano e por grau.
 >**Observação:** a partir de 2024, a CAPES passou a chamar a área de avaliação de
 >"Computação" (antes era "Ciência da Computação"). O script considera os dois nomes.
 
+### 3. Pré-processar os resumos
+
+```bash
+python src/preprocess.py
+```
+
+Marca os resumos que ficam fora da análise de texto e gera duas versões de cada resumo: `texto_limpo`, em minúsculas, para o
+BERTopic e o LLM, e `texto_lematizado`, só com substantivos, adjetivos e verbos na forma base e
+sem palavras genéricas de texto acadêmico, para o LDA.
+
+## Exploração
+
+O notebook [`notebooks/01_exploracao.ipynb`](notebooks/01_exploracao.ipynb) traz o primeiro
+olhar sobre a base: **23.749 trabalhos** entre 2010 e 2024.
+
+![Teses e dissertações por ano](reports/figures/trabalhos_por_ano_grau.png)
+
+- O mestrado acadêmico atingiu o pico em 2016 e caiu até 2023, voltando a subir em 2024.
+- O doutorado cresce quase todo ano: sua participação no total dobrou, de 13% para 26%.
+- O Sudeste concentra 43% dos trabalhos, enquanto Norte e Centro-Oeste, juntos, menos de 10%.
+
+
 ## Contexto
 
 Projeto ligado ao artigo escrito em coautoria com Júlia Paulo Amorim na disciplina de Técnicas de Apresentação
