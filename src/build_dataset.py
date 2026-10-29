@@ -17,7 +17,7 @@ import pandas as pd
 PASTA_RAW = Path("data/raw")
 SAIDA = Path("data/processed/teses_computacao_2010_2024.csv.gz")
 
-AREA_ALVO = "CIENCIA DA COMPUTACAO"
+AREAS_ALVO = {"CIENCIA DA COMPUTACAO", "COMPUTACAO"}
 TAMANHO_MINIMO_RESUMO = 100  # caracteres; abaixo disso costuma ser resumo vazio ou "-"
 
 COLUNAS = {
@@ -107,7 +107,7 @@ def ler_ano(caminho: Path) -> pd.DataFrame:
     )
     for bloco in leitor:
         bloco.columns = [mapa[c.strip().lstrip("﻿")] for c in bloco.columns]
-        da_area = bloco["area_avaliacao"].fillna("").map(normalizar) == AREA_ALVO
+        da_area = bloco["area_avaliacao"].fillna("").map(normalizar).isin(AREAS_ALVO)
         partes.append(bloco[da_area])
 
     return pd.concat(partes, ignore_index=True) if partes else pd.DataFrame()
@@ -146,6 +146,9 @@ def main() -> int:
     for caminho in arquivos:
         df_ano = ler_ano(caminho)
         print(f"{caminho.name}: {len(df_ano)} trabalhos de Computação")
+        if df_ano.empty:
+            print(f"  ATENÇÃO: nenhum trabalho encontrado em {caminho.name}. "
+                  "Confira se o nome da área de avaliação mudou (AREAS_ALVO).")
         anos.append(df_ano)
 
     base = limpar(pd.concat(anos, ignore_index=True))
