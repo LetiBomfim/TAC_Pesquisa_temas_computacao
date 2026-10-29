@@ -1,3 +1,6 @@
 pandas>=2.2
 requests>=2.32
 tqdm>=4.66
+spacy>=3.8
+matplotlib>=3.9
+jupyter>=1.1
