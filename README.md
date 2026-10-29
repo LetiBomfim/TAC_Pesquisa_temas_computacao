@@ -69,7 +69,11 @@ python src/build_dataset.py
 O script lê os CSVs de cada ano em `data/raw/`, padroniza os nomes das colunas, mantém só os trabalhos da área de avaliação
 **Ciência da Computação**, remove trabalhos sem resumo e duplicados, e grava o resultado em
 `data/processed/teses_computacao_2010_2024.csv.gz`.
+
 No final, mostra quantos trabalhos ficaram por ano e por grau.
+
+>**Observação:** a partir de 2024, a CAPES passou a chamar a área de avaliação de
+>"Computação" (antes era "Ciência da Computação"). O script considera os dois nomes.
 
 ## Contexto
 
