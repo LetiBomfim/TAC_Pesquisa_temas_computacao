@@ -30,3 +30,6 @@ data/processed/resumos_preprocessados.csv.gz
 
 # Embeddings dos resumos
 data/processed/embeddings.npz
+
+# Arquivos temporários de editores
+*.swp
