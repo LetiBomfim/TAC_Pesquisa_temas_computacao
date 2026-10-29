@@ -138,6 +138,59 @@ tópicos. Os temas continuam reconhecíveis, mas um modelo de lematização maio
 palavras-chave.
 
 
+## Análise temporal
+
+O notebook [`notebooks/03_analise_temporal.ipynb`](notebooks/03_analise_temporal.ipynb) responde
+às perguntas centrais do projeto. Como a IA não forma um tópico próprio, cada trabalho é marcado
+por um léxico de termos técnicos ([`src/lexico_ia.py`](src/lexico_ia.py)), dividido em três
+famílias: aprendizado de máquina, aprendizado profundo e modelos de linguagem.
+
+### Quando a IA virou tendência
+
+![Trabalhos que citam IA por ano](reports/figures/ia_por_ano.png)
+
+A fração de trabalhos que citam IA passou de **8% em 2010 para 42% em 2024**. O ponto de virada
+é **2018**: antes, a fatia crescia 0,8 ponto percentual por ano; depois, **3,8 pontos por ano**,
+quase cinco vezes mais rápido. O ano foi encontrado testando cada ano como início de uma nova
+fase e escolhendo o que melhor separa a série em duas retas.
+
+![Famílias de termos de IA](reports/figures/ia_familias.png)
+
+O crescimento veio em três ondas: o aprendizado de máquina cresce o período todo; o aprendizado
+profundo aparece por volta de 2017 e se estabiliza em cerca de 12% desde 2022; e os modelos de
+linguagem surgem em 2020 e são os que mais crescem no fim da série (de 0,7% para 6,7% dos
+trabalhos).
+
+### Temas que ganharam e perderam espaço
+
+![Variação dos tópicos](reports/figures/variacao_topicos.png)
+
+Comparando 2010–2014 com 2020–2024, ganharam espaço aplicações em **saúde**, os **métodos de
+aprendizado de máquina**, **agricultura**, **neurociência computacional**, **blockchain e
+criptografia**, **educação** e **IoT**. Perderam espaço **engenharia e qualidade de software**,
+**otimização combinatória e lógica**, **programação paralela e hardware**, **redes de sensores**,
+**serviços web** e **TV digital**.
+
+### Mestrado × doutorado e regiões
+
+![IA por grau](reports/figures/ia_por_grau.png)
+
+No período todo, o doutorado tem mais trabalhos de IA que o mestrado (23% contra 20%). Mas,
+ano a ano, as curvas andam juntas: em 2020–2024, o mestrado tem até um pouco mais (37% contra
+35%). A diferença no total vem da composição: o doutorado cresceu justamente nos anos em que a
+IA se espalhou.
+
+![IA por região](reports/figures/ia_por_regiao.png)
+
+Entre 2010 e 2014, todas as regiões tinham de 8% a 12% de trabalhos de IA. Em 2020–2024, a
+diferença aparece e é estatisticamente significativa (qui-quadrado, p < 0,001): **Centro-Oeste
+(39%) e Sudeste (38%)** lideram, e o **Norte (31%)** fica atrás.
+
+**Limitação:** o léxico identifica trabalhos que *citam* termos de IA no resumo. Um trabalho
+pode usar IA sem citar nenhum desses termos, ou citá-los só como contexto. As próximas etapas
+testam abordagens que olham o sentido do resumo, e não só as palavras.
+
+
 ## Contexto
 
 Projeto ligado ao artigo escrito em coautoria com Júlia Paulo Amorim na disciplina de Técnicas de Apresentação
