@@ -13,7 +13,7 @@ abertos, para responder:
 
 - [X] Coleta dos dados abertos da CAPES
 - [X] Limpeza e consolidação da base de Computação (2010–2024)
-- [ ] Pré-processamento dos resumos (NLP)
+- [X] Pré-processamento dos resumos (NLP)
 - [ ] Modelagem de tópicos (BERTopic, com LDA como baseline)
 - [ ] Análise temporal e estatística
 - [ ] Classificação supervisionada de trabalhos de IA
