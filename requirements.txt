@@ -5,3 +5,11 @@ spacy>=3.8
 matplotlib>=3.9
 jupyter>=1.1
 ftfy>=6.2
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+sentence-transformers>=3.0
+bertopic>=0.16
+umap-learn>=0.5
+hdbscan>=0.8
+scikit-learn>=1.5
