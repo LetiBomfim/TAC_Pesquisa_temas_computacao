@@ -12,7 +12,7 @@ abertos, para responder:
 ## Backlog/Roadmap
 
 - [X] Coleta dos dados abertos da CAPES
-- [ ] Limpeza e consolidação da base de Computação (2010–2024)
+- [X] Limpeza e consolidação da base de Computação (2010–2024)
 - [ ] Pré-processamento dos resumos (NLP)
 - [ ] Modelagem de tópicos (BERTopic, com LDA como baseline)
 - [ ] Análise temporal e estatística
@@ -59,6 +59,17 @@ python src/download_capes.py --anos 2022 2023     # 2022 e 2023
 
 Arquivos que já foram baixados são pulados, então dá para interromper e rodar de novo depois.
 Para baixar de novo mesmo assim, é necessário usar `--forcar`.
+
+### 2. Montar a base de Computação
+
+```bash
+python src/build_dataset.py
+```
+
+O script lê os CSVs de cada ano em `data/raw/`, padroniza os nomes das colunas, mantém só os trabalhos da área de avaliação
+**Ciência da Computação**, remove trabalhos sem resumo e duplicados, e grava o resultado em
+`data/processed/teses_computacao_2010_2024.csv.gz`.
+No final, mostra quantos trabalhos ficaram por ano e por grau.
 
 ## Contexto
 
