@@ -1,0 +1,66 @@
+tópico,rótulo,variação (p.p.),2010–2014 (%),2020–2024 (%)
+1,"ágel, refatoração, dívida",-3.49,8.9,5.4
+2,"chip, thread, quântico",-2.92,5.5,2.5
+11,"intervalar, quântico, empacotamento",-2.51,4.8,2.3
+4,"segmentação imagem, renderização, pose",-1.5,4.2,2.7
+29,"rssf, sensor fio, fio rssf",-1.34,1.9,0.6
+56,"televisão, televisão digital, aplicação interativo",-1.25,1.3,0.1
+44,"composição serviço, soa, restful",-1.24,1.6,0.4
+13,"governança, bpm, modelo negócio",-1.16,3.3,2.2
+48,"javascript, página web, blog",-1.11,1.6,0.5
+30,"sdn, openflow, enlace",-0.91,2.5,1.6
+63,"ubíquo, aplicação sensível, pon",-0.77,1.0,0.3
+10,"smell, teste software, mutante",-0.7,2.8,2.1
+26,"proveniência, workflow científico, cientista",-0.51,1.5,1.0
+18,"genoma, gene, permutação",-0.51,1.5,1.0
+60,"lps, linha produto, produto software",-0.5,0.9,0.4
+25,"dado espacial, informação geográfico, dado geográfico",-0.46,1.6,1.2
+55,"ontológico, owl, ontology",-0.46,0.8,0.3
+52,"gesto, reconhecimento gesto, olhar",-0.39,1.0,0.6
+61,"streaming, qoe, distribuição conteúdo",-0.37,0.7,0.4
+59,"coalizão, normativo, pelota",-0.35,1.1,0.7
+24,"aplicação móvel, aplicativo móvel, tablet",-0.3,1.5,1.2
+36,"rede fio, rede óptico, rádio",-0.27,1.6,1.3
+3,"surdo, corpus, pln",-0.24,3.6,3.4
+19,"coloração, conjectura, subgrafo",-0.24,1.9,1.7
+54,"escoamento, fluido, simulação numérico",-0.23,0.9,0.7
+50,"virtualização, função rede, rede virtual",-0.19,0.7,0.5
+34,"codificador, video, vídeo digital",-0.11,1.0,0.9
+9,"máquina virtual, nuver, elasticidade",-0.11,1.7,1.6
+53,"agrupamento dado, dissimilaridade, agrupamento algoritmo",-0.1,0.7,0.6
+28,"facial, biométrico, impressão digital",-0.09,0.9,0.8
+58,"proteína, molecular, bioinformática",-0.09,0.4,0.3
+38,"imersivo, personagem, imersão",-0.08,0.7,0.7
+31,"roteamento veículo, caixeiro, viajante",-0.02,0.9,0.9
+62,"centralidade, detecção comunidade, rede dinâmico",0.01,0.6,0.6
+46,"criptografia, criptográfico, blockchain",0.04,0.7,0.8
+42,"usuário item, filtragem colaborativo, preferência usuário",0.06,0.7,0.8
+33,"sos, constituinte, sas",0.06,1.8,1.9
+51,"projeção multidimensional, dado multidimensional, treemap",0.06,0.6,0.7
+6,"nosql, sgbd, dado relacional",0.13,3.5,3.6
+57,"musical, música, artista",0.15,0.3,0.5
+41,"estoque, sequenciamento, manufatura",0.2,0.9,1.1
+64,"desastr, incêndio, desastr natural",0.32,0.6,0.9
+47,"sísmico, petróleo, reservatório",0.4,0.5,0.9
+22,"robótica, robô móvel, autônor",0.4,0.9,1.3
+40,"emoção, sentimento, emocional",0.42,0.3,0.7
+12,"notícia, twitter, discurso",0.46,1.9,2.3
+49,"câncer, mama, pele",0.46,0.3,0.8
+15,"energia elétrico, rede elétrico, eficiência energético",0.52,1.2,1.7
+35,"vant, voo, aeronave",0.55,0.4,0.9
+45,"crédito, mercado financeiro, bolsa",0.57,0.6,1.2
+8,"gamificação, game, jogo digital",0.59,1.4,2.0
+37,"tomografia, imagem médico, tecido",0.62,0.7,1.4
+32,"chatbot, fala, locutor",0.65,0.6,1.2
+43,"dado pessoal, proteção dado, blockchain",0.72,0.5,1.2
+21,"trânsito, motorista, ônibus",0.77,0.9,1.7
+39,"cidade inteligente, cidadão, crime",0.85,0.4,1.3
+27,"jurídico, dado abrir, cidadão",0.88,1.1,2.0
+23,"malicioso, intrusão, cibernético",1.02,1.2,2.2
+16,"clínico, profissional saúde, hospitalar",1.22,1.1,2.3
+20,"things, internet things, things iot",1.39,0.7,2.1
+0,"evasão, ensino aprendizagem, pensamento",1.67,5.4,7.0
+17,"neurônio, cerebral, eeg",1.7,0.6,2.3
+7,"animal, espécie, agrícola",1.84,1.0,2.8
+5,"multirrótulo, interpretabilidade, previsão série",2.28,2.7,5.0
+14,"clínico, transtorno, cardíaco",3.52,0.9,4.4
