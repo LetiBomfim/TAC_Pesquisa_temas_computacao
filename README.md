@@ -14,7 +14,7 @@ abertos, para responder:
 - [X] Coleta dos dados abertos da CAPES
 - [X] Limpeza e consolidação da base de Computação (2010–2024)
 - [X] Pré-processamento dos resumos (NLP)
-- [ ] Modelagem de tópicos (BERTopic, com LDA como baseline)
+- [X] Modelagem de tópicos (BERTopic, com LDA como baseline)
 - [ ] Análise temporal e estatística
 - [ ] Classificação supervisionada de trabalhos de IA
 - [ ] Classificação de temas com LLM
@@ -38,8 +38,9 @@ Requer Python 3.10 ou superior.
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate        # Para Windows é: .venv\Scripts\activate
+source .venv/bin/activate         # Para Windows é: .venv\Scripts\activate
 pip install -r requirements.txt
+python -m spacy download pt_core_news_sm
 ```
 
 ### 1. Baixar os dados
@@ -85,6 +86,18 @@ Marca os resumos que ficam fora da análise de texto e gera duas versões de cad
 BERTopic e o LLM, e `texto_lematizado`, só com substantivos, adjetivos e verbos na forma base e
 sem palavras genéricas de texto acadêmico, para o LDA.
 
+
+### 4. Gerar os embeddings
+
+```bash
+python src/embeddings.py
+```
+
+Transforma cada resumo num vetor de 384 números que representa seu sentido, com o modelo
+multilíngue `paraphrase-multilingual-MiniLM-L12-v2`. É a etapa mais lenta e grava `data/processed/embeddings.npz`, que não é versionado. 
+Em computadores com pouca memória, feche outros programas antes de rodar.
+
+
 ## Exploração
 
 O notebook [`notebooks/01_exploracao.ipynb`](notebooks/01_exploracao.ipynb) traz o primeiro
@@ -95,6 +108,34 @@ olhar sobre a base: **23.749 trabalhos** entre 2010 e 2024.
 - O mestrado acadêmico atingiu o pico em 2016 e caiu até 2023, voltando a subir em 2024.
 - O doutorado cresce quase todo ano: sua participação no total dobrou, de 13% para 26%.
 - O Sudeste concentra 43% dos trabalhos, enquanto Norte e Centro-Oeste, juntos, menos de 10%.
+
+
+## Modelagem de tópicos
+
+O notebook [`notebooks/02_modelagem_topicos.ipynb`](notebooks/02_modelagem_topicos.ipynb) descobre
+os temas dos trabalhos sem rótulos prévios. O **BERTopic** agrupa os resumos pelo sentido e
+encontrou **65 tópicos**, o **LDA**, método clássico baseado só na contagem de palavras, serve de
+comparação com o mesmo número de tópicos.
+
+![Os 8 maiores tópicos](reports/figures/topicos_principais.png)
+
+| Modelo | Coerência (NPMI) | Diversidade |
+|---|---|---|
+| BERTopic | 0,171 | 0,825 |
+| LDA | 0,059 | 0,817 |
+
+A coerência mede se as palavras principais de um tópico aparecem juntas nos mesmos resumos. O
+BERTopic gera temas muito mais nítidos e também um pouco mais
+distintos entre si. O LDA tende a misturar assuntos dentro de um mesmo tópico.
+
+Um achado: **não existe um tópico único de Inteligência Artificial**. Aprendizado de máquina
+aparece como ferramenta espalhada por vários temas de aplicação. Medir a evolução da IA exige outra abordagem, 
+que é o foco das próximas etapas.
+
+**Limitações conhecidas:** o modelo pequeno do spaCy erra alguns lemas (por exemplo, "nuvem" vira
+"nuver" em parte dos casos), e o nome da cidade de Pelotas aparece como "pelota" em alguns
+tópicos. Os temas continuam reconhecíveis, mas um modelo de lematização maior melhoraria as
+palavras-chave.
 
 
 ## Contexto
