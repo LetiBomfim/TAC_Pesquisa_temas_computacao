@@ -21,3 +21,9 @@ Thumbs.db
 # Dados brutos da CAPES (centenas de MB por ano)
 data/raw/*
 !data/raw/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Resumos pré-processados
+data/processed/resumos_preprocessados.csv.gz
