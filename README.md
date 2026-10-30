@@ -15,10 +15,10 @@ abertos, para responder:
 - [X] Limpeza e consolidação da base de Computação (2010–2024)
 - [X] Pré-processamento dos resumos (NLP)
 - [X] Modelagem de tópicos (BERTopic, com LDA como baseline)
-- [ ] Análise temporal e estatística
-- [ ] Classificação supervisionada de trabalhos de IA
-- [ ] Classificação de temas com LLM
-- [ ] App de perguntas sobre os dados
+- [X] Análise temporal e estatística
+- [ ] Classificação de trabalhos de IA com LLM, comparada ao léxico
+- [ ] Nomes legíveis para os tópicos gerados por LLM
+- [X] App interativo para explorar os resultados
 
 ## Estrutura
 
