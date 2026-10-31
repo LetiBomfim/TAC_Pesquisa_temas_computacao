@@ -15,14 +15,15 @@ abertos, para responder:
 - [X] Limpeza e consolidação da base de Computação (2010–2024)
 - [X] Pré-processamento dos resumos (NLP)
 - [X] Modelagem de tópicos (BERTopic, com LDA como baseline)
-- [ ] Análise temporal e estatística
-- [ ] Classificação supervisionada de trabalhos de IA
-- [ ] Classificação de temas com LLM
-- [ ] App de perguntas sobre os dados
+- [X] Análise temporal e estatística
+- [X] Classificação de trabalhos de IA com LLM, comparada ao léxico
+- [X] Nomes legíveis para os tópicos gerados por LLM
+- [X] App interativo para explorar os resultados
 
 ## Estrutura
 
 ```
+app/            app Streamlit para explorar os resultados
 data/
   raw/          arquivos originais da CAPES (não versionados)
   processed/    bases tratadas
@@ -97,6 +98,21 @@ Transforma cada resumo num vetor de 384 números que representa seu sentido, com
 multilíngue `paraphrase-multilingual-MiniLM-L12-v2`. É a etapa mais lenta e grava `data/processed/embeddings.npz`, que não é versionado. 
 Em computadores com pouca memória, feche outros programas antes de rodar.
 
+### 5. Configurar o Gemini
+
+As etapas com LLM usam a API do Gemini. Crie uma chave gratuita no
+[Google AI Studio](https://aistudio.google.com/apikey), copie o arquivo `.env.example` para `.env`
+e cole a chave nele. O `.env` não é versionado.
+
+```bash
+cp .env.example .env
+python src/classificar_llm.py   # classifica uma amostra de 300 resumos
+python src/nomear_topicos.py    # dá nomes legíveis aos tópicos
+```
+
+Os dois scripts salvam cada resposta assim que ela chega. Se pararem no meio (por limite de
+uso da API, por exemplo), basta rodar de novo que eles continuam de onde pararam.
+
 
 ## Exploração
 
@@ -145,6 +161,7 @@ O notebook [`notebooks/03_analise_temporal.ipynb`](notebooks/03_analise_temporal
 por um léxico de termos técnicos ([`src/lexico_ia.py`](src/lexico_ia.py)), dividido em três
 famílias: aprendizado de máquina, aprendizado profundo e modelos de linguagem.
 
+
 ### Quando a IA virou tendência
 
 ![Trabalhos que citam IA por ano](reports/figures/ia_por_ano.png)
@@ -153,6 +170,9 @@ A fração de trabalhos que citam IA passou de **8% em 2010 para 42% em 2024**. 
 é **2018**: antes, a fatia crescia 0,8 ponto percentual por ano; depois, **3,8 pontos por ano**,
 quase cinco vezes mais rápido. O ano foi encontrado testando cada ano como início de uma nova
 fase e escolhendo o que melhor separa a série em duas retas.
+
+Esse valor é um piso: a auditoria da seção [LLM × léxico](#llm--léxico) mostra que o léxico
+deixa de fora parte dos trabalhos de IA.
 
 ![Famílias de termos de IA](reports/figures/ia_familias.png)
 
@@ -187,8 +207,77 @@ diferença aparece e é estatisticamente significativa (qui-quadrado, p < 0,001)
 (39%) e Sudeste (38%)** lideram, e o **Norte (31%)** fica atrás.
 
 **Limitação:** o léxico identifica trabalhos que *citam* termos de IA no resumo. Um trabalho
-pode usar IA sem citar nenhum desses termos, ou citá-los só como contexto. As próximas etapas
-testam abordagens que olham o sentido do resumo, e não só as palavras.
+pode usar IA sem citar nenhum desses termos, ou citá-los só como contexto. A seção a seguir
+compara o léxico com um LLM, que lê o sentido do resumo, e não só as palavras.
+
+
+## LLM × léxico
+
+O notebook [`notebooks/04_llm_vs_lexico.ipynb`](notebooks/04_llm_vs_lexico.ipynb) testa uma
+pergunta que o artigo não respondia: **um LLM identifica trabalhos de IA melhor que um léxico de
+palavras?** Uma amostra de 300 resumos (20 por ano) foi classificada pelo Gemini, que lê o resumo
+inteiro e diz se o trabalho usa IA, qual o papel dela e de que família ela é.
+
+**A definição de IA muda tudo.** O LLM usa uma definição ampla, que inclui IA simbólica
+(metaheurísticas, lógica fuzzy, sistemas especialistas). O léxico mede só IA baseada em
+aprendizado (aprendizado de máquina, aprendizado profundo e modelos de linguagem), que é a onda
+que este projeto investiga. Para comparar os dois com a mesma régua, a IA simbólica sai da conta
+do LLM.
+
+| | Concordância com o léxico | Kappa de Cohen |
+|---|---|---|
+| LLM, definição ampla | 72% | 0,41 |
+| LLM, sem IA simbólica | 87% | 0,67 |
+
+**Auditoria humana.** Li os 85 resumos em que o léxico e o LLM discordam e marquei se cada
+trabalho usa IA baseada em aprendizado. O critério: o trabalho constrói, a partir de dados, algo
+que classifica, agrupa ou prevê? A técnica sozinha não decide. Um algoritmo genético que otimiza
+uma rota não conta, mas um que gera as regras de um classificador a partir de dados conta.
+Agrupamento (clustering) conta, e regras de associação sozinhas não.
+
+| Método | Acerto nas discordâncias |
+|---|---|
+| Léxico | 67% |
+| LLM, definição ampla | 33% |
+| **LLM, sem IA simbólica** | **82%** |
+
+Com a mesma definição, o LLM acerta mais que o léxico. Os erros do léxico são quase todos num
+sentido só: trabalhos de aprendizado de máquina descritos com palavras que ele não conhece. Ou
+seja, **o léxico é confiável quando marca IA, mas subestima o total**.
+
+**O que isso muda na análise temporal.** Os dois métodos mostram a IA crescendo, mas em ritmos
+diferentes:
+
+| Período | Léxico | LLM, sem IA simbólica |
+|---|---|---|
+| 2010–2014 | 6% | 19% |
+| 2015–2019 | 16% | 25% |
+| 2020–2024 | 39% | 45% |
+
+![LLM × léxico](reports/figures/llm_vs_lexico.png)
+
+A diferença entre os dois é maior no começo da série e diminui com o tempo. Uma explicação
+provável é que o vocabulário dos trabalhos de IA mudou: os mais antigos falavam em "classificação"
+e "mineração de dados", termos que o léxico não capta, e os recentes usam termos como "aprendizado
+profundo", que ele capta. Assim, a ascensão da IA é real, mas o léxico exagera seu tamanho: pelo
+LLM, a fatia cresce cerca de 2,4 vezes, e não 6,5. Com 100 resumos por período, cada porcentagem
+tem margem de erro de cerca de ±9 pontos, então esses números indicam a direção, não valores
+exatos.
+
+**Tópicos com nomes.** Os tópicos do BERTopic também ganharam nomes legíveis, gerados pelo LLM a
+partir das palavras e de títulos de cada tópico (`reports/topicos_nomeados.csv`). Quando dois
+tópicos recebem o mesmo nome, o número do tópico é acrescentado para diferenciá-los.
+
+![Temas que mais ganharam e perderam espaço](reports/figures/variacao_topicos_nomeados.png)
+
+Os temas que mais cresceram são aplicações da computação a outras áreas (saúde, agropecuária,
+educação) e o próprio aprendizado de máquina. Os que mais perderam espaço são temas clássicos,
+como engenharia de software, computação paralela e otimização.
+
+**Decisões de engenharia:** saída em JSON validada por esquema (Pydantic), `temperature=0` para
+respostas estáveis, 10 resumos por chamada para economizar cota, novas tentativas com espera
+crescente quando a API recusa, limite de tempo por chamada e cache das respostas para retomar sem
+repetir chamadas.
 
 
 ## Contexto

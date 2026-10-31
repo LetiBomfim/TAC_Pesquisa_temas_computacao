@@ -48,6 +48,8 @@ def carregar_dados() -> tuple[pd.DataFrame, pd.DataFrame]:
         temas["nome"] = None
     palavras = temas["palavras"].str.split(", ").str[:3].str.join(", ")
     temas["rotulo"] = temas["nome"].fillna(palavras)
+    repetidos = temas["rotulo"].duplicated(keep=False)
+    temas.loc[repetidos, "rotulo"] += " (" + temas.loc[repetidos, "tópico"].astype(str) + ")"
 
     trabalhos = trabalhos.merge(temas[["tópico", "rotulo"]], left_on="topico",
                                 right_on="tópico", how="left").drop(columns="tópico")
