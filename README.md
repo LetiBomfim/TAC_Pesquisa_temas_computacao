@@ -9,6 +9,15 @@ abertos, para responder:
 - Há diferença entre mestrado e doutorado?
 - E entre as regiões do país?
 
+**[Explore os resultados no app interativo](https://evolucao-tematica-computacao.streamlit.app)**:
+a ascensão da IA por ano, família de termos e grau; os temas que mais ganharam e perderam espaço;
+e uma busca pelos 23 mil trabalhos, com filtros por ano, grau, região e título.
+
+![App interativo](reports/figures/imagem-site.png)
+
+> O app fica em modo de espera depois de alguns dias sem acesso. Se aparecer um botão para
+> acordá-lo, ele volta em menos de um minuto.
+
 ## Backlog/Roadmap
 
 - [X] Coleta dos dados abertos da CAPES
@@ -117,7 +126,8 @@ uso da API, por exemplo), basta rodar de novo que eles continuam de onde pararam
 ## Exploração
 
 O notebook [`notebooks/01_exploracao.ipynb`](notebooks/01_exploracao.ipynb) traz o primeiro
-olhar sobre a base: **23.749 trabalhos** entre 2010 e 2024.
+olhar sobre a base: **23.749 trabalhos** entre 2010 e 2024. Desses, 23.007 passam pelos filtros de
+qualidade do pré-processamento (idioma, texto corrompido e duplicatas) e entram nas etapas seguintes.
 
 ![Teses e dissertações por ano](reports/figures/trabalhos_por_ano_grau.png)
 
