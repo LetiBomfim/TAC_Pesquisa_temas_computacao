@@ -33,7 +33,7 @@ st.set_page_config(page_title="Teses de Computação no Brasil", page_icon="🎓
 # Dados
 # --------------------------------------------------------------------------------------------
 
-@st.cache_data 
+@st.cache_data
 def carregar_dados() -> tuple[pd.DataFrame, pd.DataFrame]:
     trabalhos = pd.read_csv(PROCESSADOS / "ia_lexico.csv.gz")
     base = pd.read_csv(PROCESSADOS / "teses_computacao_2010_2024.csv.gz",
@@ -62,7 +62,7 @@ def grafico_linhas(dados: pd.DataFrame, titulo: str, cor=None, cores=None):
     figura.update_traces(line_width=2.5)
     figura.update_layout(title=titulo, xaxis_title=None, yaxis_title=None, legend_title=None,
                          hovermode="x unified", margin=dict(t=50, l=10, r=10, b=10),
-                         yaxis=dict(ticksuffix="%", rangemode="tozero", gridcolor="#e8e7e3",
+                         yaxis=dict(ticksuffix="%", rangemode="tozero", gridcolor="rgba(128, 128, 128, 0.25)",
                                     showgrid=True))
     if cor is None:
         figura.update_traces(line_color=AZUL)
@@ -96,6 +96,8 @@ aba_ia, aba_temas, aba_busca = st.tabs(["Ascensão da IA", "Temas", "Explorar tr
 with aba_ia:
     st.markdown("Um trabalho conta como **de IA** quando o resumo cita termos técnicos da área "
                 "(veja `src/lexico_ia.py`). O crescimento acelerou a partir de **2018**.")
+    st.caption("Esses valores são um piso: na auditoria com LLM, o léxico deixou de fora parte dos "
+               "trabalhos de IA, principalmente nos primeiros anos. Detalhes no README do projeto.")
 
     serie = ia_por_ano.rename("valor").reset_index()
     st.plotly_chart(grafico_linhas(serie, "Trabalhos que citam IA (% do total do ano)"),
